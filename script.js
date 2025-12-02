@@ -35,7 +35,7 @@ document.body.appendChild(pokemonKarten);
 let pokemon_detail_view = document.createElement("div");
 pokemon_detail_view.id = "pokemon-detail-view";
 pokemon_detail_view.classList.add("container");
-pokemon_detail_view.classList.add("d-none");
+pokemon_detail_view.classList.add("hidden");
 document.body.appendChild(pokemon_detail_view);
 
 
@@ -55,8 +55,8 @@ for (const pokemon of pokemons) {
 //Funktionen
 
 function displaySinglePokemon(pokemon) {
-    pokemonKarten.classList.toggle("d-none");
-    pokemon_detail_view.classList.toggle("d-none");
+    pokemonKarten.classList.toggle("hidden");
+    pokemon_detail_view.classList.toggle("hidden");
 
     const card = createPokemonCard(pokemon);
 

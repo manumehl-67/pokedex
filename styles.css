@@ -66,8 +66,19 @@ h1:hover {
     width: 100%;
 }
 
-.d-none {
-    display: none;
+#pokemon-cards,
+#pokemon-detail-view {
+    opacity: 1;
+    max-height: 1000px;
+    overflow: hidden;
+    transition: opacity 0.6s ease, max-height 0.6s ease;
+}
+
+#pokemon-cards.hidden,
+#pokemon-detail-view.hidden {
+    opacity: 0;
+    max-height: 0;
+    pointer-events: none;
 }
 
 body {
@@ -75,6 +86,7 @@ body {
 
     margin: 0;
     padding: 0;
+    min-height: 100vh;
 
     background: linear-gradient(135deg, #ff3b30, #ffd700);
 }
