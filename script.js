@@ -71,6 +71,10 @@ for (const pokemon of pokemons) {
     card.appendChild(image);
     card.appendChild(type);
 
+    card.addEventListener("click", function () {
+        console.log("Das Pokémon " + pokemon.name + " wurde geklickt");
+    });
+
     pokemonKarten.appendChild(card);
 
 }
