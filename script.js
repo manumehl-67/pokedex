@@ -38,7 +38,6 @@ pokemon_detail_view.classList.add("container");
 pokemon_detail_view.classList.add("d-none");
 document.body.appendChild(pokemon_detail_view);
 
-//Funktionen
 
 for (const pokemon of pokemons) {
     const card = document.createElement("div");
@@ -80,11 +79,19 @@ for (const pokemon of pokemons) {
     card.appendChild(type);
 
     card.addEventListener("click", function () {
-        pokemonKarten.classList.toggle("d-none");
-        pokemon_detail_view.toggle("d-none");
+        displaySinglePokemon(pokemon);
     });
+
 
     pokemonKarten.appendChild(card);
 
 }
+
+//Funktionen
+
+function displaySinglePokemon() {
+    pokemonKarten.classList.toggle("d-none");
+    pokemon_detail_view.toggle("d-none");
+}
+
 //Event-Listeners
