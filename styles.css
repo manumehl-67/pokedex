@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+
+h1 {
+    color: rgb(0, 0, 0);
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 3rem;
+    letter-spacing: 2px;
+    margin-top: 30px;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+
+}
+
+
+#pokemon-cards {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.card {
+    border-radius: 5%;
+    margin: 18px;
+    border: 4px solid black;
+    background-color: rgba(253, 253, 253, 0.9);
+    padding: 0px 20px;
+    max-width: 300px;
+    width: 100%;
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+}
+
+.card:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+#title-section {
+    text-transform: uppercase;
+
+}
+
+#type {
+    font-size: larger;
+    font-style: oblique;
+}
+
+
+.container {
+    display: flex;
+    padding: 0% 2%;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card img {
+    width: 100%;
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+
+    margin: 0;
+    padding: 0;
+
+    background: linear-gradient(135deg, #ff3b30, #ffd700);
+}
