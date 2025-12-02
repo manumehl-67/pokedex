@@ -40,6 +40,31 @@ document.body.appendChild(pokemon_detail_view);
 
 
 for (const pokemon of pokemons) {
+
+    const card = createPokemonCard(pokemon);
+
+    card.addEventListener("click", function () {
+        displaySinglePokemon(pokemon);
+    });
+
+
+    pokemonKarten.appendChild(card);
+
+}
+
+//Funktionen
+
+function displaySinglePokemon(pokemon) {
+    pokemonKarten.classList.toggle("d-none");
+    pokemon_detail_view.classList.toggle("d-none");
+
+    const card = createPokemonCard(pokemon);
+
+    pokemon_detail_view.appendChild(card);
+}
+
+function createPokemonCard(pokemon) {
+
     const card = document.createElement("div");
     card.classList.add("card");
 
@@ -70,7 +95,6 @@ for (const pokemon of pokemons) {
         type.style.color = "purple"
     }
     type.textContent = pokemon.type;
-
     type.id = "type"
 
 
@@ -78,20 +102,8 @@ for (const pokemon of pokemons) {
     card.appendChild(image);
     card.appendChild(type);
 
-    card.addEventListener("click", function () {
-        displaySinglePokemon(pokemon);
-    });
+    return card;
 
-
-    pokemonKarten.appendChild(card);
-
-}
-
-//Funktionen
-
-function displaySinglePokemon() {
-    pokemonKarten.classList.toggle("d-none");
-    pokemon_detail_view.toggle("d-none");
 }
 
 //Event-Listeners
