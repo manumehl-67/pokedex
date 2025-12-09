@@ -107,10 +107,36 @@ function createPokemonCard(pokemon) {
 
 }
 
+async function getData(apiEndpoint) {
+    try {
+        const response = await fetch(apiEndpoint);
+
+        if (!response.ok) {
+            throw new error(`Response status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        return result;
+    }
+    catch (error) {
+        console.error(error.message);
+    }
+}
+
+
+async function getAllPokemons(offset = 0, limit = 100) {
+    const pokemon = await getData(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`);
+    console.log(pokemon);
+}
+
 //Event-Listeners
 
 title.addEventListener("click", function () {
-    pokemonKarten.classList.toggle("hidden");
-    pokemon_detail_view.classList.toggle("hidden")
-    pokemon_detail_view.innerHTML = "";
-})
+    if (pokemonKarten.classList.contains("hidden")) {
+        pokemonKarten.classList.toggle("hidden");
+        pokemon_detail_view.classList.toggle("hidden");
+        pokemon_detail_view.innerHTML = "";
+    }
+});
+
+getAllPokemons();
