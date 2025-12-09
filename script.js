@@ -1,20 +1,4 @@
 //Globale Variablen
-const pokemonBilderQuelle = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/";
-
-const pokemons = [
-    { name: "Pikachu", type: "Elektro", image: `${pokemonBilderQuelle}25.png` },
-    { name: "Glumanda", type: "Feuer", image: `${pokemonBilderQuelle}4.png` },
-    { name: "Schiggy", type: "Wasser", image: `${pokemonBilderQuelle}7.png` },
-    { name: "Bisasam", type: "Pflanze", image: `${pokemonBilderQuelle}1.png` },
-    { name: "Evoli", type: "Normal", image: `${pokemonBilderQuelle}133.png` },
-    { name: "Mew", type: "Psycho", image: `${pokemonBilderQuelle}151.png` },
-    { name: "Hornliu", type: "Käfer", image: `${pokemonBilderQuelle}13.png` },
-    { name: "Ganovil", type: "Boden", image: `${pokemonBilderQuelle}551.png` },
-    { name: "Clemens", type: "Normal", image: `${pokemonBilderQuelle}981.png` },
-    { name: "Bleon", type: "Gestein", image: `${pokemonBilderQuelle}476.png` },
-    { name: "Mäni", type: "Normal", image: `${pokemonBilderQuelle}734.png` },
-    { name: "Alex", type: "Normal", image: `${pokemonBilderQuelle}143.png` },
-];
 
 //HTML-Elemente
 let titleSelection = document.createElement("div");
@@ -38,18 +22,6 @@ pokemon_detail_view.classList.add("container");
 pokemon_detail_view.classList.add("hidden");
 document.body.appendChild(pokemon_detail_view);
 
-for (const pokemon of pokemons) {
-
-    const card = createPokemonCard(pokemon);
-
-    card.addEventListener("click", function () {
-        displaySinglePokemon(pokemon);
-    });
-
-
-    pokemonKarten.appendChild(card);
-
-}
 
 //Funktionen
 
@@ -76,27 +48,15 @@ function createPokemonCard(pokemon) {
     image.src = pokemon.image;
 
     const type = document.createElement("p");
-    if (pokemon.type == "Feuer") {
-        type.style.color = "red";
-    }
-
-    if (pokemon.type == "Wasser") {
-        type.style.color = "blue";
-    }
-
-    if (pokemon.type == "Pflanze") {
-        type.style.color = "green";
-    }
-
-    if (pokemon.type == "Gestein") {
-        type.style.color = "brown"
-    }
-
-    if (pokemon.type == "Psycho") {
-        type.style.color = "purple"
-    }
     type.textContent = pokemon.type;
     type.id = "type"
+    card.addEventListener("mouseover", function () {
+        image.src = pokemon.alternateImage;
+    });
+
+    card.addEventListener("mouseout", function () {
+        image.src = pokemon.image;
+    });
 
 
     card.appendChild(title);
@@ -104,7 +64,6 @@ function createPokemonCard(pokemon) {
     card.appendChild(type);
 
     return card;
-
 }
 
 async function getData(apiEndpoint) {
@@ -112,7 +71,7 @@ async function getData(apiEndpoint) {
         const response = await fetch(apiEndpoint);
 
         if (!response.ok) {
-            throw new error(`Response status: ${response.status}`);
+            throw new Error(`Response status: ${response.status}`);
         }
 
         const result = await response.json();
@@ -123,10 +82,29 @@ async function getData(apiEndpoint) {
     }
 }
 
-
-async function getAllPokemons(offset = 0, limit = 100) {
+async function getAllPokemon(offset = 0, limit = 100) {
     const pokemon = await getData(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`);
-    console.log(pokemon);
+    return pokemon.results;
+}
+
+async function displayPokemonList() {
+    const pokemonList = await getAllPokemon();
+    for (const pokemon of pokemonList) {
+
+        const pokemonData = await getData(pokemon.url);
+
+        pokemonData.image = pokemonData.sprites.other["official-artwork"]["front_default"];
+        pokemonData.alternateImage = pokemonData.sprites.other["official-artwork"]["front_shiny"];
+        pokemonData.type = pokemonData.types[0].type.name;
+
+        const card = createPokemonCard(pokemonData);
+
+        card.addEventListener("click", function () {
+            displaySinglePokemon(pokemonData);
+        });
+
+        pokemonKarten.appendChild(card);
+    }
 }
 
 //Event-Listeners
@@ -139,4 +117,4 @@ title.addEventListener("click", function () {
     }
 });
 
-getAllPokemons();
+displayPokemonList()

@@ -27,7 +27,7 @@ h1 {
     padding: 0px 20px;
     max-width: 300px;
     width: 100%;
-
+    text-transform: capitalize;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 
 }
@@ -70,7 +70,7 @@ h1:hover {
 #pokemon-detail-view {
     opacity: 1;
     overflow: hidden;
-    transition: opacity 1s ease;
+    transition: opacity 0.8s ease;
 }
 
 #pokemon-cards.hidden,
